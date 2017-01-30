@@ -1,4 +1,4 @@
-var dbconf = require('../../configurations/knexfile')
+var dbconf = require('.././knexfile')
 var knex = require('knex')(dbconf)
 
 console.log('Running migrations...')

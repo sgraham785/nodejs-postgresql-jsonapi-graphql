@@ -1,3 +1,4 @@
+require('dotenv').config()
 var util = require('util')
 var path = require('path')
 var winston = require('winston')
@@ -17,10 +18,14 @@ switch ((process.env.NODE_ENV || '').toLowerCase()) {
   case 'production':
     production = true
     logger.add(winston.transports.File, {
-      filename: path.join(__dirname, '/application.log'),
+      filename: path.join(__dirname, '../../logs/application.log'),
       handleExceptions: true,
       exitOnError: false,
-      level: 'warn'
+      level: 'info',
+      json: true,
+      maxsize: 5242880, // 5MB
+      maxFiles: 5,
+      colorize: false
     })
     break
   case 'test':

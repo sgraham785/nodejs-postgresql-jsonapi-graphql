@@ -44,23 +44,22 @@ Run database migrations & seeds:
 in no particular order
 
 - [x] Decalative routes
-- [x] Public vs. Private(auth) routes
-- [x] Migrations & Seeds
+- [x] Public vs. Private(JWT) routes
+- [ ] Programmatic Migrations & Seeds
 - [x] Add security best practices
 - [x] Use JSON API specification
-- [ ] ~~Implement password encryption~~
 - [x] Use JWT for private route auth
 - [x] Create Postman collection
 - [x] Add mailer
 - [x] Use faker for seeding
 - [x] Utilize swagger documentation
 - [ ] Dockerize
-- [x] Implement SSL
-- [ ] Add health checks
+- [x] Add SSL
+- [x] Add health checks
 - [ ] Add tests
 - [ ] Implement Yo Generator 
+- [ ] ES6
+- [ ] Handle routes singular and/or plural
 
 ## Known Issues
-* Problem with related link in return https://github.com/endpoints/endpoints-example/issues/27
-
 * https://github.com/sgraham785/node-postgres-api-server/issues

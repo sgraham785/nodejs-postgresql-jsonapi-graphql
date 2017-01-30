@@ -1,5 +1,5 @@
-_old
 .env
-bin
 node_modules
 npm-debug.log
+
+logs/application.log

@@ -1,4 +1,4 @@
-var dbconf = require('../../configurations/knexfile')
+var dbconf = require('.././knexfile')
 
 var Knex = require('knex')(dbconf)
 var Bookshelf = require('bookshelf')(Knex)
