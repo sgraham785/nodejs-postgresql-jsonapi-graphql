@@ -1,15 +1,13 @@
-var jwt = module.exports = { }
+const jwt = module.exports = { }
 
-var fs = require('fs')
-var path = require('path')
-var jsonwebtoken = require('jsonwebtoken')
-var privateKey = fs.readFileSync(path.join(__dirname, './pem/jwt.key'), 'utf8')
-var certificate = fs.readFileSync(path.join(__dirname, './pem/jwt.crt'), 'utf8')
+import fs from 'fs'
+import path from 'path'
+import jsonwebtoken from 'jsonwebtoken'
+const privateKey = fs.readFileSync(path.join(__dirname, './pem/jwt.key'), 'utf8')
+const certificate = fs.readFileSync(path.join(__dirname, './pem/jwt.crt'), 'utf8')
 
-jwt.verify = function (token) {
-  return jsonwebtoken.verify(token, certificate)
-}
-jwt.sign = function (data) {
+jwt.verify = token => jsonwebtoken.verify(token, certificate)
+jwt.sign = data => {
   if (!data) data = {id: 'test'}
-  return jsonwebtoken.sign({ data: data }, privateKey, { algorithm: 'RS256', expiresIn: '1h' })
+  return jsonwebtoken.sign({ data }, privateKey, { algorithm: 'RS256', expiresIn: '1h' })
 }

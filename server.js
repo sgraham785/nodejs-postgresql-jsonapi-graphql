@@ -1,26 +1,26 @@
-var server = module.exports = { }
+const server = module.exports = { }
 
 require('dotenv').config()
 require('./middleware/logger')
-var fs = require('fs')
-var path = require('path')
-var jsonApi = require('jsonapi-server')
-var jwt = require('./middleware/jsonwebtoken')
+import fs from 'fs'
+import path from 'path'
+import jsonApi from 'jsonapi-server'
+import jwt from './middleware/jsonwebtoken'
 
-var protocol = process.env.SERVER_PROTOCOL || 'http'
-var hostname = process.env.SERVER_HOST || 'localhost'
-var port = process.env.SERVER_PORT || '8443'
-var env = process.env.NODE_ENV || 'development'
-var privateKey = fs.readFileSync('sslcert/server.key', 'utf8')
-var certificate = fs.readFileSync('sslcert/server.crt', 'utf8')
+const protocol = process.env.SERVER_PROTOCOL || 'http'
+const hostname = process.env.SERVER_HOST || 'localhost'
+const port = process.env.SERVER_PORT || '8443'
+const env = process.env.NODE_ENV || 'development'
+const privateKey = fs.readFileSync('sslcert/server.key', 'utf8')
+const certificate = fs.readFileSync('sslcert/server.crt', 'utf8')
 
 jsonApi.setConfig({
   graphiql: true,
-  protocol: protocol,
-  hostname: hostname,
-  port: port,
+  protocol,
+  hostname,
+  port,
   base: 'v1',
-  meta: function (request) {
+  meta (request) {
     if (env === 'development') return {token: 'test'}
   },
   tls: {
@@ -44,47 +44,42 @@ jsonApi.setConfig({
 })
 
 // Load all resources
-fs.readdirSync(path.join(__dirname, '/resources')).filter(function (filename) {
-  return /^[a-z].*\.js$/.test(filename)
-}).map(function (filename) {
-  return path.join(__dirname, '/resources/', filename)
-}).forEach(require)
+fs.readdirSync(path.join(__dirname, '/resources')).filter(filename => /^[a-z].*\.js$/.test(filename)).map(filename => path.join(__dirname, '/resources/', filename)).forEach(require)
 
 // This function will be invoked on every request, as soon as the HTTP
 // request has been parsed into a "request" object.
-jsonApi.authenticate(function (request, callback) {
-
+jsonApi.authenticate((request, callback) => {
   // Allow health check without validation
   if (request.route.path === 'health') return callback()
 
-  // Sign a JWT for development
+// Sign a JWT for development
   if (env === 'development') {
     request.headers.authorization = jwt.sign()
   }
 
-  // If you callback with an error, the client will receive a HTTP 401 Unauthorised
+// If you callback with an error, the client will receive a HTTP 401 Unauthorised
   if (!request.headers.authorization) return callback('You shall not pass!')
 
-  // Verify authorization header is valid
+// Verify authorization header is valid
   if (!jwt.verify(request.headers.authorization)) return callback('BAD REQUEST')
-  // If you callback with no error, the request will continue onwards
+// If you callback with no error, the request will continue onwards
   return callback()
 })
 
-jsonApi.onUncaughtException(function (request, error) {
-  var errorDetails = error.stack.split('\n')
+jsonApi.onUncaughtException((request, error) => {
+  const errorDetails = error.stack.split('\n')
   console.error(JSON.stringify({
     type: 'UncaughtException',
-    request: request,
+    request,
     error: errorDetails.shift(),
     stack: errorDetails
   }))
 })
 
-jsonApi.metrics.on('data', function (data) {
+jsonApi.metrics.on('data', data => {
   console.info(JSON.stringify({
     type: 'Metrics',
-    data: data
+    data
   }))
 })
 

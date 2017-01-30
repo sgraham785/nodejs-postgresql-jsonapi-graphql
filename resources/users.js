@@ -1,5 +1,5 @@
-var jsonApi = require('jsonapi-server')
-var storeHandler = require('../middleware/handlers/index')
+import jsonApi from 'jsonapi-server'
+import storeHandler from '../middleware/handlers/index'
 
 jsonApi.define({
   resource: 'users',

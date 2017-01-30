@@ -1,8 +1,8 @@
 require('dotenv').config()
-var nodemailer = require('nodemailer')
+import nodemailer from 'nodemailer'
 
 // create reusable transporter object using SMTP transport
-var transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
@@ -11,4 +11,4 @@ var transporter = nodemailer.createTransport({
 })
 
 // Reusable transporter connection header
-module.exports.transporter = transporter
+export {transporter}

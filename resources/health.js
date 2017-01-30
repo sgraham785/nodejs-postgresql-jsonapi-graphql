@@ -1,4 +1,4 @@
-var jsonApi = require('jsonapi-server')
+import jsonApi from 'jsonapi-server'
 
 jsonApi.define({
   resource: 'health',

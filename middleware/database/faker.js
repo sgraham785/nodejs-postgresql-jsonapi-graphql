@@ -1,16 +1,16 @@
-var fs = require('fs')
-var faker = require('faker')
-var dataPath = 'seeds/data/'
+import fs from 'fs'
+import faker from 'faker'
+const dataPath = 'seeds/data/'
 
-var users = []
-var todos = []
+const users = []
+const todos = []
 
 /* Create users */
-for (var u = 10; u >= 0; u--) {
-  var user_id = faker.random.number()
+for (let u = 10; u >= 0; u--) {
+  const userId = faker.random.number()
 
-  var usersArray = {
-    'id': user_id,
+  const usersArray = {
+    'id': userId,
     'first_name': faker.name.firstName(),
     'last_name': faker.name.lastName(),
     'email': faker.internet.email(),
@@ -21,9 +21,9 @@ for (var u = 10; u >= 0; u--) {
   users.push(usersArray)
 
   /* Create todos for users */
-  for (var t = 12; t >= 0; t--) {
-    var todosArray = {
-      'user_id': user_id,
+  for (let t = 12; t >= 0; t--) {
+    const todosArray = {
+      'user_id': userId,
       'text': faker.hacker.phrase(),
       'complete': faker.random.boolean()
     }
@@ -31,10 +31,10 @@ for (var u = 10; u >= 0; u--) {
   }
 }
 
-fs.writeFile(dataPath + 'users.json', JSON.stringify(users), function () {
+fs.writeFile(`${dataPath}users.json`, JSON.stringify(users), () => {
   console.log('users generated successfully!')
 })
 
-fs.writeFile(dataPath + 'todos.json', JSON.stringify(todos), function () {
+fs.writeFile(`${dataPath}todos.json`, JSON.stringify(todos), () => {
   console.log('todos generated successfully!')
 })

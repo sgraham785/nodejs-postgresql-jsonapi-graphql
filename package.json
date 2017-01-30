@@ -17,7 +17,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js",
+    "start": "nodemon --exec babel-node --presets=es2015 -- server.js",
     "test": "npm run lint && mocha -R spec && standard",
     "lint": "jshint server.js source",
     "sec": "nsp check",
@@ -27,16 +27,19 @@
   "dependencies": {
     "bluebird": "^3.4.7",
     "dotenv": "^2.0.0",
+    "email-templates": "^2.5.4",
     "jsonapi-server": "^2.3.1",
     "jsonapi-store-relationaldb": "^1.2.8",
     "jsonwebtoken": "^7.1.9",
-    "knex": "^0.12.6",
     "morgan": "^1.7.0",
     "nodemailer": "^2.1.0",
     "pug": "^2.0.0-beta9",
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "babel-cli": "^6.22.2",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-latest": "^6.22.0",
     "faker": "^3.0.1",
     "jshint": "^2.5.11",
     "nsp": "^2.3.0",

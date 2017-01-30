@@ -1,10 +1,10 @@
 require('dotenv').config()
-var RelationalDbStore = require('jsonapi-store-relationaldb')
-var connection = require('../../configurations/database').connection
+import RelationalDbStore from 'jsonapi-store-relationaldb'
+import {connection} from '../../configurations/database'
 
 // console.log(connection)
 
-module.exports = new RelationalDbStore({
+export default new RelationalDbStore({
   dialect: 'postgres',
   connection,
   logging: false

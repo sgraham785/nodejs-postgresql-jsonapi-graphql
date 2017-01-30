@@ -1,7 +1,7 @@
-exports.up = function (trx) {
+export function up (trx) {
   return trx.schema
-    // Users
-    .createTable('users', function (t) {
+  // Users
+    .createTable('users', t => {
       t.increments('id').primary()
       t.string('first_name').notNullable()
       t.string('last_name').notNullable()
@@ -13,7 +13,7 @@ exports.up = function (trx) {
       t.timestamp('updated_at').notNullable().defaultTo(trx.fn.now())
     })
     // Todos
-    .createTable('todos', function (t) {
+    .createTable('todos', t => {
       t.increments('id').primary()
       t.integer('user_id').notNullable().references('id').inTable('users')
       t.text('text').notNullable()
@@ -23,7 +23,7 @@ exports.up = function (trx) {
     })
 }
 
-exports.down = function (trx) {
+export function down (trx) {
   console.log('Dropping tables')
   return trx.schema
     .dropTable('todos')

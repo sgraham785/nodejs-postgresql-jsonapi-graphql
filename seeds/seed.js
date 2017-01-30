@@ -1,13 +1,11 @@
-var fakerDatabase = require('./data')
+import fakerDatabase from './data'
 
-exports.seed = function (knex, Promise) {
-  var tables = [
+export default function (knex, Promise) {
+  const tables = [
     'users',
     'todos'
   ]
-  return Promise.each(tables, function (table) {
-    return Promise.each(fakerDatabase[ table ], function (record) {
-      return knex(table).insert(record)
-    })
-  })
+  return Promise.each(tables, table =>
+    Promise.each(fakerDatabase[ table ], record =>
+      knex(table).insert(record)))
 }

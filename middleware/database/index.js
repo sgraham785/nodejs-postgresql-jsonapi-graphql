@@ -1,7 +1,7 @@
-var dbconf = require('.././knexfile')
+import dbconf from '.././knexfile'
 
-var Knex = require('knex')(dbconf)
-var Bookshelf = require('bookshelf')(Knex)
+const Knex = require('knex')(dbconf)
+const Bookshelf = require('bookshelf')(Knex)
 
 // Reusable database connection header
-module.exports.Bookshelf = Bookshelf
+export {Bookshelf}

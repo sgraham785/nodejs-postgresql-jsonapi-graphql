@@ -43,7 +43,7 @@ Run database migrations & seeds:
 ## Roadmap
 in no particular order
 
-- [x] Decalative routes
+- [x] Declarative routes
 - [x] Public vs. Private(JWT) routes
 - [ ] Programmatic Migrations & Seeds
 - [x] Add security best practices
@@ -57,9 +57,9 @@ in no particular order
 - [x] Add SSL
 - [x] Add health checks
 - [ ] Add tests
-- [ ] Implement Yo Generator 
-- [ ] ES6
-- [ ] Handle routes singular and/or plural
+- [x] ES6
+- [ ] Support routes singular and/or plural
+- [x] Graphql enabled
 
 ## Known Issues
 * https://github.com/sgraham785/node-postgres-api-server/issues
