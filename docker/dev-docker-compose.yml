@@ -1,0 +1,34 @@
+patientpostgres:
+  image: patientpostgres
+  environment:
+    - DEBUG=true
+    - POSTGRES_USER=postgres
+    - POSTGRES_PASSWORD=postgres
+  ports:
+    - "5432:5432"
+
+
+dfpatient:
+  image: dfpatient
+  restart: on-failure:3
+  ports:
+    - "8080:8080"
+  environment:
+    - DB_DRIVER=org.postgresql.Driver
+    - DB_URL=jdbc:postgresql://patientpostgres:5432/patient_portal
+    - DB_HOST=patientpostgres
+    - DB_NAME=patient_portal
+    - DB_SCHEMA=navigation
+    - DB_PORT=5432
+    - DB_USERNAME=postgres
+    - DB_PASSWORD=postgres
+    - DB_INITIAL_SIZE=3
+    - DB_MAX_TOTAL=8
+    - DB_MAX_WAIT_MILLIS=5000
+    - PORTAL_SESSION_URL=https://df-stg-web.dfengg.com/bp2/session.jsp
+    - PORTAL_SESSION_TIMEOUT=5000
+    - ADMIN_USERNAME=admin123
+    - ADMIN_PASSWORD=Ondemand1!
+    - AUTHENTICATION_IS_ACTIVE=false
+  links:
+    - patientpostgres

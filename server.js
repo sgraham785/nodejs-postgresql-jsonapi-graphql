@@ -28,7 +28,7 @@ jsonApi.setConfig({
     key: privateKey
   },
   swagger: {
-    title: 'Todo API', // Title (required)
+    title: 'Auth Server', // Title (required)
     version: '1.0.0', // Version (required)
     description: 'This is the API description block that shows up in the swagger.json',
     contact: {

@@ -1,6 +1,8 @@
 {
   "presets": ["env"],
   "ignore": [
+    "docker",
+    "database",
     "node_modules",
     "logs",
     "sslcert"

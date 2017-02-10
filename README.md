@@ -60,6 +60,7 @@ in no particular order
 - [x] ES6
 - [ ] Support routes singular and/or plural
 - [x] Graphql enabled
+- [ ] Add yarn.lock support
 
 ## Known Issues
 * https://github.com/sgraham785/node-postgres-api-server/issues
