@@ -22,7 +22,7 @@ jsonApi.setConfig({
   port,
   base: 'v1',
   meta (request) {
-    if (env === 'development') return {token: 'test'}
+    if (env === 'development') return {token: 'tester'}
   },
   tls: {
     cert: certificate,

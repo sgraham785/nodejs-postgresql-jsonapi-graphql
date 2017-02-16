@@ -36,7 +36,7 @@ jsonApi.define({
     {
       type: 'users',
       id: 'ad3aa89e-9c5b-4ac9-a652-6670f9f27587',
-      first_name: 'blah',
+      first_name: 'Sean',
       last_name: 'Graham',
       email: 'sgraham785@gmail.com',
       code: '7852hiso',
