@@ -17,11 +17,12 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --exec babel-node --presets=latest -- server.js",
-    "build": "babel . -d dist",
+    "start": "forever ./bin/www",
+    "start-dev": "NODE_ENV=development babel-node ./bin/www",
+    "build": "babel ./src -d ./dist",
     "prebuild": "rm -rf dist/*",
     "test": "npm run lint && mocha -R spec && standard",
-    "lint": "jshint server.js source",
+    "lint": "jshint src",
     "nsp": "nsp check",
     "standardjs": "standard --fix",
     "rmrf-npmi": "rm -rf node_modules && npm i"
@@ -30,6 +31,7 @@
     "bluebird": "^3.4.7",
     "dotenv": "^2.0.0",
     "email-templates": "^2.5.4",
+    "forever": "^0.15.3",
     "jsonapi-server": "^2.3.1",
     "jsonapi-store-relationaldb": "^1.2.8",
     "jsonwebtoken": "^7.1.9",
@@ -42,8 +44,10 @@
     "babel-cli": "^6.22.2",
     "babel-preset-env": "^1.1.8",
     "babel-preset-latest": "^6.22.0",
+    "chai": "^3.5.0",
     "faker": "^3.0.1",
     "jshint": "^2.5.11",
+    "mocha": "^3.2.0",
     "nsp": "^2.3.0",
     "standard": "^8.6.0"
   }

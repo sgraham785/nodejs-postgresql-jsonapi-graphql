@@ -1,7 +1,7 @@
 require('dotenv').config()
 
 import path from 'path'
-import {transporter} from '../../configurations/mailer'
+import {transporter} from '../../configs/mailer'
 import emailTemplates from 'email-templates'
 
 const templatesDir = path.resolve(__dirname, '..', 'public/views/mail')

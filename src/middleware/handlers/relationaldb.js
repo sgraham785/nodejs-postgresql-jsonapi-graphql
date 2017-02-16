@@ -1,6 +1,6 @@
 require('dotenv').config()
 import RelationalDbStore from 'jsonapi-store-relationaldb'
-import {connection} from '../../configurations/database'
+import {connection} from '../../configs/database'
 
 // console.log(connection)
 

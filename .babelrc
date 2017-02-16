@@ -1,9 +1,11 @@
 {
-  "presets": ["env"],
+  "only": "/",
+  "presets": ["env", "es2015"],
   "ignore": [
-    "docker",
-    "database",
-    "node_modules",
+    "docker/*",
+    "database/*",
+    "node_modules/**/*",
+    "target/*",
     "logs",
     "sslcert"
   ]

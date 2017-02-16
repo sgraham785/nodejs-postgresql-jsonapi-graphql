@@ -1,17 +1,9 @@
-FROM node:4-onbuild
+FROM node:6.9.5
 
-# Create app directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
+RUN mkdir -p /app/logs
+ADD .foreverignore /app
+COPY target /app
+COPY . /app
+WORKDIR /app
+CMD npm start
 
-# Install app dependencies
-COPY package.json /usr/src/app/
-RUN npm install
-
-# Bundle app source
-COPY . /usr/src/app/
-#CMD [ "npm", "run", "build" ]
-RUN npm run build
-
-CMD [ "npm", "run", "serve" ]
-EXPOSE 8080

@@ -1,67 +1,55 @@
 .DEFAULT_GOAL := all
 
-##Test configs
-	export DB_DRIVER=org.postgresql.Driver
-	export DB_PASSWORD=postgres
-	export DB_URL=jdbc:postgresql://patientpostgres:5432/patient_portal
-	export DB_USERNAME=postgres
-	export DB_INITIAL_SIZE=3
-	export DB_MAX_TOTAL=8
-	export DB_MAX_WAIT_MILLIS=5000
-	export PORTAL_SESSION_URL=https://www.demandforced3.com/bp2/session.jsp
-	export PORTAL_SESSION_TIMEOUT=5000
-	export ADMIN_USERNAME=admin123
-	export ADMIN_PASSWORD=Ondemand1!
-	export AUTHENTICATION_IS_ACTIVE=false
+export IMAGE=jsonapi-server
+ifdef GIT_COMMIT
+  export IMAGE_NAME=${IMAGE}:${GIT_COMMIT}
+else
+  export IMAGE_NAME=${IMAGE}
+endif
+$(shell echo IMAGE_NAME=${IMAGE_NAME} > .env)
+$(shell echo HOST_ROOT_MOUNT=../ >> .env)
+$(shell echo CONTAINER_ROOT_MOUNT=/project-root >> .env)
 
 help:
 	@echo
 	@echo
-	@echo "BUILDING:"
-	@echo "   make				make (compile) main image"
-	@echo "   make postgres		- make (compile) persistence"
+	@echo " make				- make (compile) main image"
 	@echo
-	@echo "TESTING:"
-	@echo "   make test			- run integration test suite"
+	@echo " make test			- compile and run tests"
 	@echo
-	@echo "CLEANING:"
-	@echo "   make clean			- clean all build artifacts, docker containers, and volumes"
+	@echo " make clean			- clean all build artifacts, docker containers, and volumes"
 	@echo
-	@echo "RUNNING AND STOPPING FOR DEVELOPER:"
-	@echo "   make developer			- docker-compile up the build system"
+	@echo " make up				- docker-compose up the system"
 	@echo
-	@echo "RUNNING AND STOPPING:"
-	@echo "   make up			- docker-compile up the build system"
+	@echo " make dev			- docker-compose up the system in development mode (bind-mounted root directory with 'watch' mode on)"
 	@echo
-	@echo "PROFILING:"
-	@echo "   make tail-patient		- tail the template-api docker container's log"
-	@echo "   make tail-postgres		- tail the postgres docker container's log"
+	@echo " make npm-install	- invoke npm install inside the container. Reload public npm dependencies without rebuilding."
 	@echo
 
 clean:
-	sudo docker-compose -f docker/dev-docker-compose.yml stop
-	sudo docker-compose -f docker/dev-docker-compose.yml rm -v --force
-
+	- sudo docker rm -f docker_app_run_1
+	- sudo rm -rf target
+#Do not call this directly. The "all" target will invoke this inside of the build container.
+container:
+	rm -rf target
+	mkdir -p target
+	cp package.json target
+	cd target && npm install
 all:
-	./docker/buildall.sh
-
-postgres:
-	cd ./docker/postgres && docker build -t postgres .
-
+	sudo docker-compose -f docker/docker-compose.yml run --rm build make container
+	sudo docker build -t $(IMAGE_NAME) .
 test:
-	npm run test
-
+	sudo docker-compose -f docker/docker-compose.yml run --rm app npm test
+up-dev:
+	$(shell echo HOST_ROOT_MOUNT=../ >> .env)
+	$(shell echo CONTAINER_ROOT_MOUNT=/app >> .env)
+	cp -rp target/node_modules ./
+	sudo docker-compose -f docker/docker-compose.yml run -d --rm --service-ports app npm run-script start-dev
 up:
-	cd ./docker && docker-compose -f dev-docker-compose.yml up -d
+	sudo docker-compose -f docker/docker-compose.yml run -d --rm --service-ports app npm start
+ .PHONY: test
 
-developer:
-	sudo -E docker-compose -f docker/dev-docker-compose.yml stop
-	sudo -E docker-compose -f docker/dev-docker-compose.yml rm -v --force
-	./docker/buildall.sh
-	sudo -E docker-compose -f docker/dev-docker-compose.yml up -d
+npm-install:
+	docker exec -ti docker_app_1 npm install
 
-tail-patient:
-	docker logs -f docker_dfpatient_1
-
-tail-postgres:
-	docker logs -f docker_postgres_1
+.PHONY: test

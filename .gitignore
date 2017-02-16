@@ -1,5 +1,6 @@
 .env
+dist
+logs
 node_modules
+target
 npm-debug.log
-
-logs/application.log
