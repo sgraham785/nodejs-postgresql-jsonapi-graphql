@@ -14,7 +14,6 @@ const env = process.env.NODE_ENV || 'development'
 const privateKey = fs.readFileSync(path.join(__dirname, '../sslcerts/development.server.key'), 'utf8')
 const certificate = fs.readFileSync(path.join(__dirname, '../sslcerts/development.server.crt'), 'utf8')
 
-
 jsonApi.setConfig({
   graphiql: true,
   protocol,
@@ -22,7 +21,7 @@ jsonApi.setConfig({
   port,
   base: 'v1',
   meta (request) {
-    if (env === 'development') return {token: 'tester'}
+    if (env === 'development') return {token: 'test'}
   },
   tls: {
     cert: certificate,
