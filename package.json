@@ -24,6 +24,7 @@
     "watch-build": "babel ./src -w -d ./dist",
     "build": "babel ./src -d ./dist",
     "prebuild": "rm -rf dist/*",
+    "migrations": "NODE_ENV=development node database/migrate.js",
     "test": "npm run lint && mocha --reporter spec --bail --check-leaks --compilers js:babel-core/register ./test/**/*.js && standard",
     "lint": "jshint src",
     "nsp": "nsp check",
@@ -41,6 +42,10 @@
     "morgan": "^1.7.0",
     "nodemailer": "^2.1.0",
     "pug": "^2.0.0-beta9",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-html-email": "^1.2.0",
+    "umzug": "^1.11.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {

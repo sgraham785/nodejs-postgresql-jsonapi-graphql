@@ -1,3 +1,3 @@
-FROM postgres:9.5.2
+FROM postgres:9.6.2
 
-ADD ./schema/* /docker-entrypoint-initdb.d/
+COPY ./docker/postgres/schema /docker-entrypoint-initdb.d

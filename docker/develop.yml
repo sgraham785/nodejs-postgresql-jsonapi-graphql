@@ -1,0 +1,25 @@
+app:
+  image: $IMAGE_NAME
+  ports:
+    - 8443:8443
+  volumes:
+    - ../src:/app/src
+  environment:
+    - NODE_ENV=development
+    - ACCESS_CONTROL_ALLOW_ORIGIN=*
+    - DB_DRIVER=org.postgresql.Driver
+    - DB_URL=jdbc:postgresql://postgres:5432/patient_portal
+    - DB_HOST=postgres
+    - DB_NAME=patient_portal
+    - DB_SCHEMA=navigation
+    - DB_PORT=5432
+    - DB_USERNAME=postgres
+    - DB_PASSWORD=postgres
+  command: npm run develop
+  links:
+    - postgres
+
+postgres:
+  image: $IMAGE_NAME-db1
+  ports:
+    - 5432:5432

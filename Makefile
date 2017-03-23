@@ -1,4 +1,4 @@
-.DEFAULT_GOAL := all
+.DEFAULT_GOAL := build
 
 export IMAGE=jsonapi-server
 ifdef GIT_COMMIT
@@ -7,49 +7,51 @@ else
   export IMAGE_NAME=${IMAGE}
 endif
 $(shell echo IMAGE_NAME=${IMAGE_NAME} > .env)
-$(shell echo HOST_ROOT_MOUNT=../ >> .env)
-$(shell echo CONTAINER_ROOT_MOUNT=/project-root >> .env)
 
 help:
 	@echo
 	@echo
-	@echo " make				- make (compile) main image"
+	@echo " make				- compile & build main image"
 	@echo
-	@echo " make test			- compile and run tests"
+	@echo " make up			- creates & runs the container"
 	@echo
-	@echo " make clean			- clean all build artifacts, docker containers, and volumes"
+	@echo " make dev			- compile, build image(s) & run container(s) in development mode"
 	@echo
-	@echo " make up				- docker-compose up the system"
+	@echo " make up-dev			- run container(s) in development mode"
 	@echo
-	@echo " make dev			- docker-compose up the system in development mode (bind-mounted root directory with 'watch' mode on)"
+	@echo " make test			- creates container(s), run tests, then removes container(s)"
 	@echo
-	@echo " make npm-install	- invoke npm install inside the container. Reload public npm dependencies without rebuilding."
+	@echo " make down			- removes the container(s)"
+	@echo
+	@echo " make clean			- removes all build images, containers, and target volumes for this project"
+	@echo
 	@echo
 
 clean:
-	- sudo docker rm -f docker_app_run_1
+	- sudo docker-compose -f docker/develop.yml down
 	- sudo rm -rf target
-#Do not call this directly. The "all" target will invoke this inside of the build container.
-container:
-	rm -rf target
+npm-install:
 	mkdir -p target
 	cp package.json target
 	cd target && npm install
-all:
-	sudo docker-compose -f docker/docker-compose.yml run --rm build make container
+	npm build
+build:	clean
+	sudo docker-compose -f docker/build.yml run --rm build make npm-install
 	sudo docker build -t $(IMAGE_NAME) .
-test:
-	sudo docker-compose -f docker/docker-compose.yml run --rm app npm test
-up-dev:
-	$(shell echo HOST_ROOT_MOUNT=../ >> .env)
-	$(shell echo CONTAINER_ROOT_MOUNT=/app >> .env)
-	cp -rp target/node_modules ./
-	sudo docker-compose -f docker/docker-compose.yml run -d --rm --service-ports app npm run-script start-dev
-up:
-	sudo docker-compose -f docker/docker-compose.yml run -d --rm --service-ports app npm start
- .PHONY: test
-
-npm-install:
-	docker exec -ti docker_app_1 npm install
+build-dev:	build build-deps
+	rm -rf node_modules
+	ln -s target/node_modules
+build-deps:
+	sudo docker build -f docker/postgres/Dockerfile -t $(IMAGE_NAME)-db1 ./
+dev:	build-dev up-dev
+up-dev:	down
+	sudo docker-compose -f docker/develop.yml up -d app
+up:	down
+	sudo docker-compose -f docker/up.yml up -d --remove-orphans app
+down:
+	sudo docker-compose -f docker/develop.yml down
+test:	down
+	sudo docker-compose -f docker/test.yml run --rm app npm test
+	sudo docker-compose -f docker/test.yml down
 
 .PHONY: test

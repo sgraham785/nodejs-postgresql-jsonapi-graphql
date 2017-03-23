@@ -1,0 +1,5 @@
+build:
+  image: nodesource/centos7:latest
+  working_dir: /build
+  volumes:
+    - ..:/build
