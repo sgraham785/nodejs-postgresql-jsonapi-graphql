@@ -4,7 +4,7 @@ import path from 'path'
 import {transporter} from '../../configs/mailer'
 import emailTemplates from 'email-templates'
 
-const templatesDir = path.resolve(__dirname, '..', 'public/views/mail')
+const templatesDir = path.resolve(__dirname, './templates')
 const EmailAddressRequiredError = new Error('email address required')
 
 const sendOne = (templateName, locals, fn) => {
