@@ -9,7 +9,7 @@ import jwt from './middleware/jsonwebtoken'
 
 const protocol = process.env.SERVER_PROTOCOL || 'http'
 const hostname = process.env.SERVER_HOST || 'localhost'
-const port = process.env.SERVER_PORT || '8443'
+const port = process.env.SERVER_PORT || '8003'
 const env = process.env.NODE_ENV || 'development'
 const privateKey = fs.readFileSync(path.join(__dirname, '../sslcerts/development.server.key'), 'utf8')
 const certificate = fs.readFileSync(path.join(__dirname, '../sslcerts/development.server.crt'), 'utf8')

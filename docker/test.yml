@@ -1,6 +1,7 @@
 app:
   image: $IMAGE_NAME
   volumes:
+    - ../.babelrc:/app/.babelrc
     - ../test:/app/test
   environment:
     - NODE_ENV=test

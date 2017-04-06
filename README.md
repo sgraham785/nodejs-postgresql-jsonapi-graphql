@@ -79,6 +79,7 @@ in no particular order
 - [ ] Add tests
 - [x] ES6
 - [ ] Support routes singular and/or plural
+- [x] Generate fake seed data
 - [ ] Programmatic Migrations & Seeds
 - [x] Graphql enabled
 - [ ] Add yarn support

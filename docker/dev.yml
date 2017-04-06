@@ -3,7 +3,7 @@ app:
   ports:
     - 8443:8443
   volumes:
-    - ../src:/app/src
+    - ../:/app
   environment:
     - NODE_ENV=development
     - ACCESS_CONTROL_ALLOW_ORIGIN=*
@@ -15,7 +15,7 @@ app:
     - DB_PORT=5432
     - DB_USERNAME=postgres
     - DB_PASSWORD=postgres
-  command: npm run develop
+  command: npm run dev
   links:
     - postgres
 

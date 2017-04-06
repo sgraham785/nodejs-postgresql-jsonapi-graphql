@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
-require('../dist/server')
-// process.env.NODE_ENV === 'development' ? require('../src/server') : require('../dist/server')
+let server = process.env.NODE_ENV === 'development' ? '../src/server.js' : '../dist/server.js'
+require('./_setup').start(server)

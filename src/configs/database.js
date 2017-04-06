@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 export default {
   connection: {
     host: process.env.DB_HOST,
@@ -7,4 +9,3 @@ export default {
     database: process.env.DB_NAME
   }
 }
-
