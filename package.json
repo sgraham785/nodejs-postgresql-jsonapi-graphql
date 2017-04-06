@@ -62,5 +62,20 @@
     "mocha": "^3.2.0",
     "nsp": "^2.3.0",
     "standard": "^9.0.2"
+  },
+  "babel": {
+    "only": "/",
+    "presets": [
+      "env",
+      "es2015"
+    ],
+    "ignore": [
+      "docker/*",
+      "database/*",
+      "node_modules/**/*",
+      "target/*",
+      "logs",
+      "sslcert"
+    ]
   }
 }
