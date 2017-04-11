@@ -1,7 +1,7 @@
 .env
 dist
 logs
-database/migrations/*
+database/migrations/*.ignore.sql
 database/seeds/*.fake.sql
 node_modules
 npm-debug.log
