@@ -14,7 +14,7 @@ This repo comes with support for Docker using GNU Make targets
 
 #### Clone this repo:
 
-`git clone https://github.com/sgraham785/node-postgres-api-server.git`
+`git remote add origin https://github.com/sgraham785/nodejs-postgresql-jsonapi-graphql.git app`
 
 ## Docker Usage
 
@@ -80,4 +80,4 @@ in no particular order
 - [ ] Add Cloudrail support
 
 ## Known Issues
-* https://github.com/sgraham785/node-postgres-api-server/issues
+* https://github.com/sgraham785/nodejs-postgresql-jsonapi-graphql/issues
