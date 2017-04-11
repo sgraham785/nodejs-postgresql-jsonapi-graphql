@@ -16,21 +16,21 @@ This repo comes with support for Docker using GNU Make targets
 
 `git clone https://github.com/sgraham785/node-postgres-api-server.git`
 
-#### Build Docker image:
+## Docker Usage
 
-`make`
+Build the app and database docker images & containers locally then run them in development mode:
 
-#### Starting the server
+`make build-dev`
 
-```
-make up
-``` 
+If you already have the images built and want to create the containers & run them in development mode:
 
-#### Starting the server in development mode (bindmounted src/ and hot reload)
+`make up-dev`
 
-```
-make up-dev
-``` 
+To stop and remove the containers (not images):
+
+`make down`
+
+See `make help` for more options 
 
 #### Run tests
 
@@ -42,13 +42,6 @@ make test
 
 Rename `.env.sample` to `.env` and add your configuration credentials
 
-## Usage
-
-Run database migrations & seeds:  (Broken)
-
-`node source/middleware/database/migrate.js `
-
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/f8493f5b75ab1b296b22)
 
 ## Maintainers
 

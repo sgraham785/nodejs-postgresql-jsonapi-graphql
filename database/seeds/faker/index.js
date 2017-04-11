@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import Chance from 'chance'
-const chance = new Chance()
+const chance = new Chance() // needed for eval'ed values
 const jsonSql = require('json-sql')({
   'dialect': 'postgresql',
   'separatedValues': false
