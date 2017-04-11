@@ -16,7 +16,7 @@ fs.readdirSync(path.join(__dirname, '/config')).forEach(file => {
     let iterations = config[table].iterations
 
     // Empty or create file
-    fs.writeFile(`${sqlFile}.sql`, '')
+    fs.writeFile(`${sqlFile}.fake.sql`, '')
     let stream = fs.createWriteStream(`${sqlFile}.fake.sql`, { 'flags': 'a' })
 
     for (let i = iterations; i >= 1; i--) {

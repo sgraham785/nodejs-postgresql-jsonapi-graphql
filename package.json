@@ -45,7 +45,6 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-html-email": "^1.2.0",
-    "umzug": "^1.11.0",
     "winston": "^2.2.0"
   },
   "devDependencies": {
@@ -56,7 +55,6 @@
     "chai": "^3.5.0",
     "chance": "^1.0.6",
     "concurrently": "^3.3.0",
-    "faker": "^3.1.0",
     "jshint": "^2.5.11",
     "json-sql": "^0.3.10",
     "mocha": "^3.2.0",
