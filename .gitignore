@@ -1,5 +1,6 @@
 .env
 dist
 logs
+database/migrations/*
 node_modules
 npm-debug.log
