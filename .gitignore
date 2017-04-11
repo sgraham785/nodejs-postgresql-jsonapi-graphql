@@ -2,5 +2,6 @@
 dist
 logs
 database/migrations/*
+database/seeds/*.fake.sql
 node_modules
 npm-debug.log
