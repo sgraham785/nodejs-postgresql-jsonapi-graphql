@@ -2,7 +2,7 @@
 -- assumes the schema portal already does exist + all necessary groups/users are already created
 
 -- drop all tables (order is important!)
-\c todos;
+-- \c todos;
 SET search_path = todos;
 
 -- object: todos.todo_items | type: TABLE --
@@ -39,11 +39,11 @@ CREATE TABLE todo_items(
   todo_id bigserial NOT NULL,
   user_id bigint NOT NULL,
   text varchar NOT NULL,
-  complete booleam NOT NULL default 'false',
+  complete boolean NOT NULL default 'false',
   package_url varchar NOT NULL,
   updated_at timestamp NOT NULL DEFAULT now(),
   created_at timestamp NOT NULL DEFAULT now(),
-  CONSTRAINT menu_options_menu_option_id_pkey PRIMARY KEY (menu_option_id)
+  CONSTRAINT todo_items_todo_id_pkey PRIMARY KEY (todo_id)
 
 );
 -- ddl-end --

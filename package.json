@@ -20,9 +20,9 @@
     "start": "node ./bin/www",
     "build": "babel ./src -d ./dist",
     "prebuild": "rm -rf dist/*",
-    "dev": "NODE_ENV=development node ./bin/www",
+    "dev": "npm install --only=dev && node ./bin/www",
     "faker": "babel-node database/seeds/faker",
-    "migrate": "flyway -c dist/configs/flyway.js migrate",
+    "migrate": "flyway -X -configFile=database/flyway.conf migrate",
     "test": "npm run lint && mocha --reporter spec --bail --check-leaks --compilers js:babel-core/register ./test/**/*.js && standard",
     "lint": "jshint src",
     "nsp": "nsp check",
@@ -33,13 +33,12 @@
     "bluebird": "^3.4.7",
     "dotenv": "^2.0.0",
     "email-templates": "^2.5.4",
-    "forever": "^0.15.3",
+    "flywaydb-cli": "^0.0.1",
     "forever-monitor": "^1.7.1",
     "jsonapi-server": "^2.3.1",
     "jsonapi-store-relationaldb": "^1.2.8",
     "jsonwebtoken": "^7.1.9",
     "morgan": "^1.7.0",
-    "node-flywaydb": "^0.1.4",
     "nodemailer": "^2.1.0",
     "pug": "^2.0.0-beta9",
     "react": "^15.4.2",
@@ -71,9 +70,12 @@
       "docker/*",
       "database/*",
       "node_modules/**/*",
-      "target/*",
       "logs",
       "sslcert"
     ]
+  },
+  "jshintConfig": {
+    "asi": true,
+    "esversion": 6
   }
 }

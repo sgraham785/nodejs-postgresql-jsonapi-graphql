@@ -1,8 +1,6 @@
 .DEFAULT_GOAL := build
 
-export IMAGE=jsonapi-server
-export ENV=prod
-
+export IMAGE=jsonapi-api
 ifdef GIT_COMMIT
   export IMAGE_NAME=${IMAGE}:${GIT_COMMIT}
 else
@@ -33,17 +31,18 @@ clean:
 	- sudo docker-compose -f docker/dev.yml down
 	- sudo rm -rf node_modules
 npm-install:
-	npm install -${ENV}
+	npm install
 	npm run build
+	npm prune --production
 build:	clean
 	@echo "Compiling source..."
 	sudo docker-compose -f docker/build.yml run --rm build make npm-install
 	@echo "Building image..."
 	sudo docker build -t $(IMAGE_NAME) .
-build-dev:	build build-deps
-	sudo docker-compose -f docker/dev.yml up -d app
 build-deps:
 	sudo docker build -f docker/postgres/Dockerfile -t $(IMAGE_NAME)-db1 ./
+build-dev:	build build-deps
+	sudo docker-compose -f docker/dev.yml up -d app
 up-dev:	down
 	sudo docker-compose -f docker/dev.yml up -d app
 up:	down
