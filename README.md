@@ -73,7 +73,8 @@ in no particular order
 - [x] ES6
 - [ ] Support routes singular and/or plural
 - [x] Generate fake seed data
-- [ ] Programmatic Migrations & Seeds
+- [x] Programmatic Migrations
+- [ ] Fix programmatic seeding
 - [x] Graphql enabled
 - [ ] Add yarn support
 - [ ] Render email html w/ React.js

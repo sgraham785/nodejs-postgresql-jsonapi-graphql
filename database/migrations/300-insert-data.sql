@@ -1,1 +1,0 @@
-\c patient_portal;

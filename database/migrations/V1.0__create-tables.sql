@@ -40,7 +40,6 @@ CREATE TABLE todo_items(
   user_id bigint NOT NULL,
   text varchar NOT NULL,
   complete boolean NOT NULL default 'false',
-  package_url varchar NOT NULL,
   updated_at timestamp NOT NULL DEFAULT now(),
   created_at timestamp NOT NULL DEFAULT now(),
   CONSTRAINT todo_items_todo_id_pkey PRIMARY KEY (todo_id)
