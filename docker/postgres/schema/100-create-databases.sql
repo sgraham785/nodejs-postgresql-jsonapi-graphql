@@ -3,10 +3,10 @@
 -- database
 -- note: DROP command may not work in a script, must be run on its own
 
-DROP DATABASE IF EXISTS patient_portal;
+DROP DATABASE IF EXISTS todos;
 
-CREATE DATABASE patient_portal
-  WITH OWNER = patient_portal_owner
+CREATE DATABASE todos
+  WITH OWNER = todos_database_owner
        ENCODING = 'UTF8'
        TABLESPACE = pg_default
      -- for Linux
@@ -19,12 +19,12 @@ CREATE DATABASE patient_portal
 
 -- schema
 -- note: you must be connected to the portal_menu database to run the schema creation
-\c patient_portal;
-DROP SCHEMA IF EXISTS navigation;
+\c todos;
+DROP SCHEMA IF EXISTS todos;
 
-CREATE SCHEMA navigation
-  AUTHORIZATION navigation_owner;
+CREATE SCHEMA todos
+  AUTHORIZATION todos_owner;
 
-GRANT ALL ON SCHEMA navigation TO navigation_owner;
-GRANT USAGE ON SCHEMA navigation TO navigation_appuser;
-GRANT USAGE ON SCHEMA navigation TO navigation_readonly;
+GRANT ALL ON SCHEMA todos TO todos_owner;
+GRANT USAGE ON SCHEMA todos TO todos_appuser;
+GRANT USAGE ON SCHEMA todos TO todos_readonly;

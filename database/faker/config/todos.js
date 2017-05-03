@@ -1,7 +1,7 @@
 import Chance from 'chance'
 const chance = new Chance()
 
-exports['todos'] = {
+exports['todo_items'] = {
   iterations: 48,
   values: 'chance.todos()'
 }
@@ -9,8 +9,8 @@ exports['todos'] = {
 chance.mixin({
   'todos': function () {
     return {
-      id: chance.guid(),
-      user_id: chance.guid(),
+      // id: chance.guid(),
+      user_id: chance.integer(),
       text: chance.sentence(),
       complete: chance.bool()
     }
